@@ -8,20 +8,36 @@ function openTool(type) {
   sound.volume = 0.4;
   sound.play();
 
-  // 🔥 show loader
+  // 🔥 loader
   loader.style.display = "flex";
 
   setTimeout(() => {
     loader.style.display = "none";
     popup.style.display = "flex";
 
-    if(type === 'image') {
+    content.innerHTML = "";
+
+    // 🔥 FILE CONVERTER
+    if (type === "file-converter") {
+      localStorage.setItem("nextTool", "https://www.freeconvert.com/");
+      
+      window.location.href = "loading.html";
+      return;
+    }
+
+    // 🖼 IMAGE TOOL
+    if (type === "image") {
+      localStorage.setItem("nextTool", "https://www.iloveimg.com/ar/remove-background");
+
       content.innerHTML = `
         <iframe src="https://www.iloveimg.com/ar/remove-background"></iframe>
       `;
     }
 
-    if(type === 'video') {
+    // 🎥 VIDEO TOOL
+    else if (type === "video") {
+      localStorage.setItem("nextTool", "https://www.freeconvert.com/video-to-mp3");
+
       content.innerHTML = `
         <iframe src="https://www.freeconvert.com/video-to-mp3"></iframe>
       `;
@@ -29,14 +45,7 @@ function openTool(type) {
 
   }, 2000);
 }
-
 function closeTool() {
   document.getElementById("popup").style.display = "none";
   document.getElementById("toolContent").innerHTML = "";
-}
-
-
-
-if(tool === "video-to-audio") {
-  window.location.href = "https://user.hilltopads.com/publisher/history";
 }

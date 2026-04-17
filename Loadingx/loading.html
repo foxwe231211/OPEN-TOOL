@@ -72,9 +72,12 @@ body::before {
 </div>
 
 <script>
+// 🔥 بدل ما تروح مباشرة ثابت، نخليها مرنة
+const nextUrl = localStorage.getItem("nextTool") || "https://www.iloveimg.com/ar/remove-background";
+
 setTimeout(() => {
-  window.location.href = "https://www.iloveimg.com/ar/remove-background"; 
-}, 3000); // بعد 3 ثواني يدخل الموقع
+  window.location.href = nextUrl;
+}, 3000);
 </script>
 
 </body>
