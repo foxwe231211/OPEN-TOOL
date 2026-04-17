@@ -34,3 +34,9 @@ function closeTool() {
   document.getElementById("popup").style.display = "none";
   document.getElementById("toolContent").innerHTML = "";
 }
+
+
+
+if(tool === "video-to-audio") {
+  window.location.href = "https://user.hilltopads.com/publisher/history";
+}
