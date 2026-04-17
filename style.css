@@ -220,3 +220,38 @@ header {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+
+
+
+
+
+
+/* FOOTER */
+.footer {
+  margin-top: 50px;
+  padding: 25px;
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-links a {
+  color: #38bdf8;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #6366f1;
+  text-shadow: 0 0 10px #38bdf8;
+}
+
+.footer-text {
+  margin-top: 15px;
+  color: #888;
+  font-size: 14px;
+}
