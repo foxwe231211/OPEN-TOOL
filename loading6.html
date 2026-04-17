@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Loading Open Tools</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #050816;
+  font-family: Arial;
+  color: #38bdf8;
+  overflow: hidden;
+}
+
+/* خلفية Glow */
+body::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #38bdf8, transparent 60%);
+  filter: blur(120px);
+  opacity: 0.3;
+  animation: move 4s infinite alternate;
+}
+
+@keyframes move {
+  0% { transform: translate(-30px,-30px); }
+  100% { transform: translate(30px,30px); }
+}
+
+/* Loader */
+.loader {
+  text-align: center;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  border: 5px solid transparent;
+  border-top: 5px solid #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  box-shadow: 0 0 20px #38bdf8;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.text {
+  margin-top: 20px;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader">
+  <div class="spinner"></div>
+  <div class="text">Loading Open Tools...</div>
+</div>
+
+<script>
+setTimeout(() => {
+  window.location.href = "https://www.kapwing.com/ar/tools/audio-editor/audio-enhancer"; 
+}, 3000); // بعد 3 ثواني يدخل الموقع
+</script>
+
+</body>
+</html>

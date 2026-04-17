@@ -1,26 +1,36 @@
 function openTool(type) {
   const popup = document.getElementById("popup");
   const content = document.getElementById("toolContent");
+  const loader = document.getElementById("loader");
 
-  popup.style.display = "block";
+  // 🔊 صوت
+  const sound = new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+  sound.volume = 0.4;
+  sound.play();
 
-  if(type === 'video') {
-    content.innerHTML = `
-      <h2>تحويل فيديو إلى صوت</h2>
-      <input type="file" accept="video/*"><br><br>
-      <button onclick="alert('هنا هتربطه بالسيرفر')">تحويل</button>
-    `;
-  }
+  // 🔥 show loader
+  loader.style.display = "flex";
 
-  if(type === 'image') {
-    content.innerHTML = `
-      <h2>إزالة خلفية صورة</h2>
-      <input type="file" accept="image/*"><br><br>
-      <button onclick="alert('هنا API أو AI')">تنفيذ</button>
-    `;
-  }
+  setTimeout(() => {
+    loader.style.display = "none";
+    popup.style.display = "flex";
+
+    if(type === 'image') {
+      content.innerHTML = `
+        <iframe src="https://www.iloveimg.com/ar/remove-background"></iframe>
+      `;
+    }
+
+    if(type === 'video') {
+      content.innerHTML = `
+        <iframe src="https://www.freeconvert.com/video-to-mp3"></iframe>
+      `;
+    }
+
+  }, 2000);
 }
 
 function closeTool() {
   document.getElementById("popup").style.display = "none";
+  document.getElementById("toolContent").innerHTML = "";
 }

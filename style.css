@@ -1,89 +1,222 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI';
-  background: #0f172a;
+  font-family: Arial;
+  background: #050816;
   color: white;
+  overflow-x: hidden;
 }
 
+/* 🔵 خلفية AI */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.25;
+  z-index: -1;
+}
+
+body::before {
+  width: 600px;
+  height: 600px;
+  background: #38bdf8;
+  animation: float1 10s ease-in-out infinite alternate;
+}
+
+body::after {
+  width: 500px;
+  height: 500px;
+  background: #6366f1;
+  right: 0;
+  bottom: 0;
+  animation: float2 12s ease-in-out infinite alternate;
+}
+
+@keyframes float1 {
+  0% { transform: translate(-20px,-20px); }
+  100% { transform: translate(80px,60px); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(20px,20px); }
+  100% { transform: translate(-80px,-60px); }
+}
+
+/* HEADER */
 header {
   text-align: center;
-  padding: 30px;
-  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  padding: 50px 20px 20px;
 }
 
+.logo {
+  font-size: 60px;
+  font-weight: bold;
+  background: linear-gradient(90deg,#38bdf8,#6366f1,#38bdf8);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowText 4s linear infinite;
+}
+
+.sub-title {
+  color: #acb8c9;
+  margin-top: 35px;
+  font-size: 25px;
+}
+
+/* GRID */
 .container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 كروت في الصف */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 40px;
 }
 
+/* CARD */
 .card {
-  background: #1e293b;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
   padding: 20px;
   border-radius: 20px;
   text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
   transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) scale(1.03);
+  border-color: #38bdf8;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background: #3b82f6;
-  color: white;
-  cursor: pointer;
-}
-
-.popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-}
-
-.popup-content {
-  background: #1e293b;
-  margin: 10% auto;
-  padding: 20px;
-  width: 90%;
-  max-width: 500px;
-  border-radius: 15px;
-}
-
-.close {
-  float: right;
-  cursor: pointer;
-  font-size: 22px;
-}
-
-
-.card {
-  overflow: hidden; /* يمنع أي تمدد خارج الكارت */
-}
-
-
-.card {
-  overflow: hidden;
-}
-
-.card-img {
+.card img {
   width: 100%;
   height: 160px;
   object-fit: cover;
   border-radius: 15px;
-  transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* Hover Effect */
-.card:hover .card-img {
-  transform: scale(1.1);
-  filter: brightness(1.1);
+/* BUTTON */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#38bdf8,#6366f1);
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(56,189,248,0.4);
+}
+
+/* POPUP */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(12px);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  background: #0f172a;
+  border-radius: 15px;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* ANIMATION */
+@keyframes glowText {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+/* ========================= */
+/* 🚀 دخول تدريجي للموقع */
+/* ========================= */
+
+header,
+.card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+header {
+  animation-delay: 0.2s;
+}
+
+.card:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 1.1s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* LOADER */
+.loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  color: #38bdf8;
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 4px solid transparent;
+  border-top: 4px solid #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 20px #38bdf8;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
