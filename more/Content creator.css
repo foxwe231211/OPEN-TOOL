@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #050816;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* 🔥 خلفية احترافية */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+body::before {
+  width: 500px;
+  height: 500px;
+  background: #38bdf8;
+  top: -100px;
+  left: -100px;
+}
+
+body::after {
+  width: 400px;
+  height: 400px;
+  background: #6366f1;
+  bottom: -100px;
+  right: -100px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.title {
+  font-size: 45px;
+  background: linear-gradient(90deg,#38bdf8,#6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sub {
+  color: #aaa;
+  margin-top: 10px;
+}
+
+/* GRID */
+.creator-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 30px;
+}
+
+/* BUTTON */
+.tool-btn {
+  padding: 20px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  color: white;
+
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Hover */
+.tool-btn:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: #38bdf8;
+  box-shadow: 0 0 20px rgba(56,189,248,0.4);
+}
+
+/* موبايل */
+@media (max-width: 768px) {
+  .creator-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .creator-wrapper {
+    grid-template-columns: 1fr;
+  }
+}

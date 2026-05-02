@@ -19,15 +19,19 @@ function openTool(type) {
 
     // 🔥 FILE CONVERTER
     if (type === "file-converter") {
-      localStorage.setItem("nextTool", "https://www.freeconvert.com/");
+      localStorage.setItem("nextTool", "");
       
-      window.location.href = "loading.html";
+      // 👇 فتح في تبويب جديد بدل نفس الصفحة
+      window.open("loading.html", "_blank");
       return;
     }
 
     // 🖼 IMAGE TOOL
     if (type === "image") {
       localStorage.setItem("nextTool", "https://www.iloveimg.com/ar/remove-background");
+
+      // 👇 برضو تبويب جديد
+      window.open("loading.html", "_blank");
 
       content.innerHTML = `
         <iframe src="https://www.iloveimg.com/ar/remove-background"></iframe>
@@ -38,6 +42,9 @@ function openTool(type) {
     else if (type === "video") {
       localStorage.setItem("nextTool", "https://www.freeconvert.com/video-to-mp3");
 
+      // 👇 تبويب جديد
+      window.open("loading.html", "_blank");
+
       content.innerHTML = `
         <iframe src="https://www.freeconvert.com/video-to-mp3"></iframe>
       `;
@@ -45,6 +52,7 @@ function openTool(type) {
 
   }, 2000);
 }
+
 function closeTool() {
   document.getElementById("popup").style.display = "none";
   document.getElementById("toolContent").innerHTML = "";
