@@ -57,37 +57,3 @@ function closeTool() {
   document.getElementById("popup").style.display = "none";
   document.getElementById("toolContent").innerHTML = "";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-
-// لما المتصفح يسمح بالتثبيت
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-
-  // إظهار الزر
-  installBtn.style.display = "block";
-});
-
-// لما المستخدم يضغط على الزر
-installBtn.addEventListener("click", async () => {
-  installBtn.style.display = "none";
-
-  deferredPrompt.prompt(); // يظهر نافذة التثبيت
-
-  const choiceResult = await deferredPrompt.userChoice;
-
-  deferredPrompt = null;
-});
