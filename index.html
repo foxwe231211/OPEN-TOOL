@@ -53,7 +53,6 @@ body::after {
     animation: move3 14s ease-in-out infinite alternate;
 }
 
-/* الحركات */
 @keyframes move1 {
     0% { transform: translate(-30%, -20%); }
     100% { transform: translate(30%, 20%); }
@@ -171,7 +170,7 @@ body::after {
     color: #94a3b8;
 }
 
-/* 👇 نافذة الاسم */
+/* modals */
 .modal {
     position: fixed;
     inset: 0;
@@ -187,9 +186,39 @@ body::after {
     padding: 25px;
     border-radius: 16px;
     text-align: center;
-    width: 300px;
+
+    width: 880px;
+    max-width: 95%;
+
+    height: 100vh;
+    max-height: 80vh;
+
     box-shadow: 0 0 30px #38bdf8;
     color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* العنوان */
+.policy-title {
+    font-size: 38px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #38bdf8, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+/* الشروط */
+.policy-content {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    line-height: 1.7;
+    overflow-y: auto;
 }
 
 .modal-box input {
@@ -209,6 +238,10 @@ body::after {
     border-radius: 10px;
     cursor: pointer;
 }
+
+#termsModal {
+    z-index: 150;
+}
 </style>
 </head>
 
@@ -216,12 +249,83 @@ body::after {
 
 <div class="glow"></div>
 
-<!-- 👇 نافذة الاسم -->
+<!-- الشروط -->
+<div class="modal" id="termsModal">
+  <div class="modal-box">
+
+  <h2 class="policy-title">📜 Privacy Policy</h2>
+
+  <div class="policy-content">
+
+      <h1>📜1. Information Collection</h1>
+      <h3>نحن لا نقوم بجمع أي معلومات شخصية من المستخدمين بشكل مباشر...</h3>
+
+      <h1>📜2. Cookies</h1>
+      <h3>قد يستخدم الموقع ملفات تعريف الارتباط (Cookies)...</h3>
+
+      <h1>📜 3. Updates to Rules</h1>
+
+<h3>قد يتم تعديل هذه القواعد في أي وقت، واستمرار الاستخدام يعني موافقتك على التحديثات.</h3>
+
+      <h1>📜4. Data Security</h1>
+      <h3>نحن نحرص على حماية البيانات 100%.</h3>
+
+      <h1>📜5. Changes</h1>
+      <h3>قد يتم تحديث السياسة في أي وقت.</h3>
+
+<h1> 📜 7. Prohibited Activities</h1>
+<h3>يُمنع استخدام الأدوات في أي من التالي:
+
+أي استخدام ضار أو غير أخلاقي
+محاولة اختراق أو الإضرار بالموقع أو المستخدمين
+استخدام الأدوات في محتوى مسيء أو غير قانوني</h3>
+
+
+<h1>📜 8. User Responsibility</h1>
+
+<h3>المستخدم مسؤول بالكامل عن طريقة استخدامه للموقع والأدوات، ونحن غير مسؤولين عن أي استخدام خاطئ.</h3>
+
+
+
+
+
+
+
+<h1>📜 9. Service Availability</h1>
+
+
+<h3>قد يتوقف الموقع أو بعض الأدوات مؤقتًا للصيانة أو التحديث في أي وقت بدون إشعار مسبق.</h3>
+
+
+<h1>📜 10. Limitation of Liability</h1>
+
+<h3>نحن لا نتحمل أي مسؤولية عن أي أضرار ناتجة عن استخدام الموقع أو الأدوات بشكل مباشر أو غير مباشر</h3>
+
+<h1>📜11. Third-Party Services</h1>
+      <h3>قد نستخدم خدمات طرف ثالث مثل شركات الإعلانات...</h3>
+
+
+
+  </div>
+
+    <label style="display:flex;gap:8px;margin-top:15px;cursor:pointer;font-size:20px;">
+      <input type="checkbox" id="agreeBox">
+      أوافق على الشروط
+    </label>
+
+    <button id="enterBtn" onclick="acceptTerms()" disabled style="width:100%;opacity:0.5;">
+      دخول 🚀
+    </button>
+
+  </div>
+</div>
+
+<!-- الاسم -->
 <div class="modal" id="nameModal">
     <div class="modal-box">
-        <h2>أهلاً بيك 👋</h2>
-        <p> اكتب اسمك الانجليزيه عشان نتعرف عليك ❤</p>
-        <input type="text" id="nameInput" placeholder="اسمك هنا">
+        <h2>أهلاً 👋</h2>
+        <p>اكتب اسمك</p>
+        <input type="text" id="nameInput">
         <button onclick="saveName()">دخول</button>
     </div>
 </div>
@@ -235,64 +339,77 @@ body::after {
 
 <div class="loader" id="loader">
     <div class="percent" id="percent">0%</div>
-    <div class="bar">
-        <div class="progress" id="progress"></div>
-    </div>
-    <div class="loading-text">Loading Open Tools...</div>
+    <div class="bar"><div class="progress" id="progress"></div></div>
+    <div class="loading-text">Loading...</div>
 </div>
 
 <script>
 
-let userName;
+let agreeBox, enterBtn;
 
-// 👇 فتح الصفحة
-window.onload = function() {
-    userName = localStorage.getItem("userName");
+window.onload = function () {
 
+    agreeBox = document.getElementById("agreeBox");
+    enterBtn = document.getElementById("enterBtn");
+
+    if (agreeBox) {
+        agreeBox.addEventListener("change", function () {
+            enterBtn.disabled = !agreeBox.checked;
+            enterBtn.style.opacity = agreeBox.checked ? "1" : "0.5";
+            enterBtn.style.cursor = agreeBox.checked ? "pointer" : "not-allowed";
+        });
+    }
+
+    if (localStorage.getItem("termsAccepted") === "true") {
+        document.getElementById("termsModal").style.display = "none";
+    }
+
+    let userName = localStorage.getItem("userName");
     if (userName) {
-        document.getElementById("nameModal").style.display = "none";
         document.querySelector(".line.small").innerText =
             "Welcome " + userName + " to the";
+
+        document.getElementById("nameModal").style.display = "none";
     }
 };
 
-// 👇 حفظ الاسم
-function saveName() {
-    let input = document.getElementById("nameInput").value;
+function acceptTerms(){
+    if(!agreeBox.checked) return;
 
-    if (input.trim() !== "") {
-        localStorage.setItem("userName", input);
-        userName = input;
+    localStorage.setItem("termsAccepted","true");
 
-        document.getElementById("nameModal").style.display = "none";
+    // 🔥 إضافة الحماية
+    localStorage.setItem("siteToken", "ok123");
+
+    document.getElementById("termsModal").style.display="none";
+}
+
+function saveName(){
+    let input=document.getElementById("nameInput").value;
+    if(input.trim()!==""){
+        localStorage.setItem("userName",input);
+        document.getElementById("nameModal").style.display="none";
 
         document.querySelector(".line.small").innerText =
-            "Welcome " + userName + " to the";
+            "Welcome " + input + " to the";
     }
 }
 
-// 👇 بدء النظام
 function start(){
-    document.querySelector(".main").style.display = "none";
-    document.getElementById("loader").style.display = "flex";
+    document.querySelector(".main").style.display="none";
+    document.getElementById("loader").style.display="flex";
 
-    let percent = 0;
+    let p=0;
+    let i=setInterval(()=>{
+        p++;
+        document.getElementById("percent").innerText=p+"%";
+        document.getElementById("progress").style.width=p+"%";
 
-    let interval = setInterval(() => {
-        percent++;
-
-        document.getElementById("percent").innerText = percent + "%";
-        document.getElementById("progress").style.width = percent + "%";
-
-        if(percent >= 100){
-            clearInterval(interval);
-
-            setTimeout(() => {
-                window.location.href = "home.html";
-            }, 500);
+        if(p>=100){
+            clearInterval(i);
+            setTimeout(()=>location.href="home.html",500);
         }
-
-    }, 25);
+    },25);
 }
 
 </script>

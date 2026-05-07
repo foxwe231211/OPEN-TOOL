@@ -1,4 +1,21 @@
+window.onload = function () {
+
+    let accepted = localStorage.getItem("termsAccepted");
+    let name = localStorage.getItem("userName");
+
+    // لو مفيش اسم أو شروط → يرجعه للبداية
+    if (accepted !== "true" || !name) {
+        window.location.href = "index.html"; 
+    }
+};
+
+
+
+
+
 function openTool(type) {
+
+
   const popup = document.getElementById("popup");
   const content = document.getElementById("toolContent");
   const loader = document.getElementById("loader");
